@@ -10,7 +10,7 @@ class Agency < Formula
   on_macos do
     if Hardware::CPU.intel?
       url "https://github.com/geoffbelknap/agency/releases/download/v0.1.0/agency_0.1.0_darwin_amd64.tar.gz"
-      sha256 "63d1156ffa9a75de1495a4b3efa65d952662977e270020665a3bbbad7990fe47"
+      sha256 "8ded4cf05a60ed241dc1ad1d8ad7daa48b0e4ed09123555f8e6b132de1258886"
 
       define_method(:install) do
         bin.install "agency"
@@ -18,7 +18,7 @@ class Agency < Formula
     end
     if Hardware::CPU.arm?
       url "https://github.com/geoffbelknap/agency/releases/download/v0.1.0/agency_0.1.0_darwin_arm64.tar.gz"
-      sha256 "d0d36101ddbebc59583b5157f73ff132b50c5c01dfa8ad37ae6ce96f6c8e043f"
+      sha256 "a01e9c4d2ed737825a349963a9754949e97458b1eee70b6f858bed0bbad1b18a"
 
       define_method(:install) do
         bin.install "agency"
@@ -29,18 +29,30 @@ class Agency < Formula
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
       url "https://github.com/geoffbelknap/agency/releases/download/v0.1.0/agency_0.1.0_linux_amd64.tar.gz"
-      sha256 "39e6933ff8446632010c1860d364e09c5a219d0de7a5c3da47726ba72b02b015"
+      sha256 "51f949df2ab8c3dc5b9540902238743b3e61ee0e8dbc971aceaffe86cce24f2e"
       define_method(:install) do
         bin.install "agency"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/geoffbelknap/agency/releases/download/v0.1.0/agency_0.1.0_linux_arm64.tar.gz"
-      sha256 "97860480682d799a10490cb109381b4dbcc7b3d3bc007fa8fcae4bb27da28e7d"
+      sha256 "bbd935a3fa32c08fcb81b7b756785d080e1af089bb9fb1651a786a3882ddb548"
       define_method(:install) do
         bin.install "agency"
       end
     end
+  end
+
+  def caveats
+    <<~EOS
+      To get started:
+
+        1. Make sure Docker is running
+        2. Get an API key from Anthropic, OpenAI, or Google
+        3. Run: agency setup
+
+      Full documentation: https://github.com/geoffbelknap/agency
+    EOS
   end
 
   test do
