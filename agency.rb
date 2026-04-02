@@ -5,20 +5,20 @@
 class Agency < Formula
   desc "Agency — An operating system for AI agents"
   homepage "https://github.com/geoffbelknap/agency"
-  version "0.1.0"
+  version "0.1.1"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.1.0/agency_0.1.0_darwin_amd64.tar.gz"
-      sha256 "80cb264e55fddb5ae9f0b8bfe856e6feed12d9bb4708651624c5f6a893fcc16c"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.1.1/agency_0.1.1_darwin_amd64.tar.gz"
+      sha256 "c3ea87a3c065187011e2fed876f164f5b2f364ae790dbbb3aa53268105ffd193"
 
       define_method(:install) do
         bin.install "agency"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.1.0/agency_0.1.0_darwin_arm64.tar.gz"
-      sha256 "ac40a415733ced9a8c15de38b226ef6789002d21c244ee0c75b2f379d3cb1b93"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.1.1/agency_0.1.1_darwin_arm64.tar.gz"
+      sha256 "2e246ba3fbd4c0d5ffe793295f203cecfd12beba211ea06683693e54b8c137cc"
 
       define_method(:install) do
         bin.install "agency"
@@ -28,15 +28,15 @@ class Agency < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.1.0/agency_0.1.0_linux_amd64.tar.gz"
-      sha256 "f7b75ca77d85e602d9c1eb9c5776d5636386ca97b7cf4805e0af98c6bdf54092"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.1.1/agency_0.1.1_linux_amd64.tar.gz"
+      sha256 "82ab3547986c6c853db5344ec70a66a32ca9b66e677378bdba9e10e60304a05b"
       define_method(:install) do
         bin.install "agency"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.1.0/agency_0.1.0_linux_arm64.tar.gz"
-      sha256 "4a8d67f6fdce8b034d352ea38b29a42bdd779b0561e6c7a923d22b3a65dc028d"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.1.1/agency_0.1.1_linux_arm64.tar.gz"
+      sha256 "5a472ab9ffec85a7923d1c53d0b81ffbdc614c24e834c35e6a63f582f3914b97"
       define_method(:install) do
         bin.install "agency"
       end
