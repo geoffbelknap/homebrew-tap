@@ -10,7 +10,7 @@ class Agency < Formula
   on_macos do
     if Hardware::CPU.intel?
       url "https://github.com/geoffbelknap/agency/releases/download/v0.1.0/agency_0.1.0_darwin_amd64.tar.gz"
-      sha256 "32e445f3c44ad7cce7dae5892bb8dbbf3aeb98aeb8b242352323ec7ec2f2dab7"
+      sha256 "f02359c11a0c66da2f40361d54a702b748800d3e419b6caaf26a4b4ec4c47ab9"
 
       define_method(:install) do
         bin.install "agency"
@@ -18,7 +18,7 @@ class Agency < Formula
     end
     if Hardware::CPU.arm?
       url "https://github.com/geoffbelknap/agency/releases/download/v0.1.0/agency_0.1.0_darwin_arm64.tar.gz"
-      sha256 "ae27c010ee317870558b6efef3b51c027605d7010818e6b5f2d318a4adb6dff5"
+      sha256 "18883f5485f749c1616eae2c6fd6ab2288b89b143d1e727fa3a3290c8898b425"
 
       define_method(:install) do
         bin.install "agency"
@@ -29,14 +29,14 @@ class Agency < Formula
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
       url "https://github.com/geoffbelknap/agency/releases/download/v0.1.0/agency_0.1.0_linux_amd64.tar.gz"
-      sha256 "aeb0273c6d5d5620e21c345110ed38a744783fab61eca8460bab1521f5964371"
+      sha256 "8678e49538ac808aa2076ca4631af77a808d539e7fcf0666c8499cb07cf865fb"
       define_method(:install) do
         bin.install "agency"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/geoffbelknap/agency/releases/download/v0.1.0/agency_0.1.0_linux_arm64.tar.gz"
-      sha256 "002af533c613614326957bce9656ef4fb938fd4775ef4615e97191e60b0233cf"
+      sha256 "2eb1457eb6b286ba1754c25eb1877c24e92203d7ddb8f2ed6b247e85ce67f2bf"
       define_method(:install) do
         bin.install "agency"
       end
