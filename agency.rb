@@ -5,20 +5,20 @@
 class Agency < Formula
   desc "Agency — An operating system for AI agents"
   homepage "https://github.com/geoffbelknap/agency"
-  version "0.2.0-rc9"
+  version "0.2.0-rc10"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc9/agency_0.2.0-rc9_darwin_amd64.tar.gz"
-      sha256 "3d858f81d083b832c25cf70806678d9b25a7efe9efd17cc72394e1a91f413770"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc10/agency_0.2.0-rc10_darwin_amd64.tar.gz"
+      sha256 "d73b533d3b1d98925f433bd6fe18a7b103d44f55c8d3ad3e5b3ba89c9a35857e"
 
       define_method(:install) do
         bin.install "agency"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc9/agency_0.2.0-rc9_darwin_arm64.tar.gz"
-      sha256 "a0e71f7c5c9086cdd7c632e07ed54d29256c940ab1cdf9af3fbf6229ccfe699a"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc10/agency_0.2.0-rc10_darwin_arm64.tar.gz"
+      sha256 "98c2528fe23380716f6514f223e50fd1b41685aaf2cb740acbb54fbf24d8fa51"
 
       define_method(:install) do
         bin.install "agency"
@@ -28,15 +28,15 @@ class Agency < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc9/agency_0.2.0-rc9_linux_amd64.tar.gz"
-      sha256 "0f8c6ecbe2f441eb7ad70e6f93091f87e69a66b54053270b882329e96a1296e2"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc10/agency_0.2.0-rc10_linux_amd64.tar.gz"
+      sha256 "c3856260390b3e18cfc8d5f8a3ddcbad490c581f59b3f1b5f4b856b92c544656"
       define_method(:install) do
         bin.install "agency"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc9/agency_0.2.0-rc9_linux_arm64.tar.gz"
-      sha256 "677081e0cc5c100573f3cbfacfc7f26bdfd4f97a9b6d85a4bd29c8e7c6041a2f"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc10/agency_0.2.0-rc10_linux_arm64.tar.gz"
+      sha256 "d1940e60d8df5854020adab69f08ec426edc20fb0ed5bf40f7d1a5e454894d92"
       define_method(:install) do
         bin.install "agency"
       end
@@ -45,13 +45,14 @@ class Agency < Formula
 
   def caveats
     <<~EOS
-      To get started:
+      Start here:
 
-        1. Make sure Docker is running
-        2. Get an API key from Anthropic, OpenAI, or Google
-        3. Run: agency setup
+        agency quickstart
 
-      Full documentation: https://github.com/geoffbelknap/agency
+      Agency will guide you through provider setup on first run.
+      If Docker Desktop is installed but not running, Agency will try to start it.
+
+      Quick start guide: https://github.com/geoffbelknap/agency/blob/main/docs/quickstart.md
     EOS
   end
 
