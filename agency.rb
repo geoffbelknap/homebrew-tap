@@ -5,20 +5,20 @@
 class Agency < Formula
   desc "Agency — An operating system for AI agents"
   homepage "https://github.com/geoffbelknap/agency"
-  version "0.2.0-rc12"
+  version "0.2.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc12/agency_0.2.0-rc12_darwin_amd64.tar.gz"
-      sha256 "03354b9703fdba3cdc4ce9454f08d394ada48526f40eec8fea3203fc3c8fdb88"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0/agency_0.2.0_darwin_amd64.tar.gz"
+      sha256 "3ca8791921ba535fd9a07a47576b61b29032d08dd20499ca166818eb0d8c4ced"
 
       define_method(:install) do
         bin.install "agency"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc12/agency_0.2.0-rc12_darwin_arm64.tar.gz"
-      sha256 "f13b7c72d87e6a29fb050007c6f92edc91c4497248a9dcb2e9ae93b4b1bbcfd8"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0/agency_0.2.0_darwin_arm64.tar.gz"
+      sha256 "b19350590e2895f720061300d7ec0355195bc23613af730615303e9f3e9ec8c9"
 
       define_method(:install) do
         bin.install "agency"
@@ -28,15 +28,15 @@ class Agency < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc12/agency_0.2.0-rc12_linux_amd64.tar.gz"
-      sha256 "44471636875bf484cb02d1256961815a4ca954139da789590a5cc7926e2cf66d"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0/agency_0.2.0_linux_amd64.tar.gz"
+      sha256 "2efd7fc2ac0736c6434917d1412c4d2f828d5bf98b134cf7f9a1a9cc9ff3e314"
       define_method(:install) do
         bin.install "agency"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc12/agency_0.2.0-rc12_linux_arm64.tar.gz"
-      sha256 "9d17e4a7933f7520614be4c83d29cb8177f6d8aad042e9bb083673a3c3ebe12b"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0/agency_0.2.0_linux_arm64.tar.gz"
+      sha256 "70bd801026fab84f46667f08737ead54c6560c32a7f494acc530a774359c6455"
       define_method(:install) do
         bin.install "agency"
       end
@@ -49,10 +49,7 @@ class Agency < Formula
 
         agency quickstart
 
-      Agency will guide you through provider setup on first run.
-      If Docker Desktop is installed but not running, Agency will try to start it.
-
-      Quick start guide: https://github.com/geoffbelknap/agency/blob/main/docs/quickstart.md
+      Quick start guide: https://github.com/geoffbelknap/agency#readme
     EOS
   end
 
