@@ -5,20 +5,20 @@
 class Agency < Formula
   desc "Agency — An operating system for AI agents"
   homepage "https://github.com/geoffbelknap/agency"
-  version "0.2.0-rc1"
+  version "0.2.0-rc9"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc1/agency_0.2.0-rc1_darwin_amd64.tar.gz"
-      sha256 "86688c64ff56a62b81b61c4a93c5eb85d715e4f90be0266d01650f9e8580c697"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc9/agency_0.2.0-rc9_darwin_amd64.tar.gz"
+      sha256 "3d858f81d083b832c25cf70806678d9b25a7efe9efd17cc72394e1a91f413770"
 
       define_method(:install) do
         bin.install "agency"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc1/agency_0.2.0-rc1_darwin_arm64.tar.gz"
-      sha256 "180ac0347cb8421191e5bd6bedc72cf5b91625e49b8abcb3b7ddaf094c494d86"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc9/agency_0.2.0-rc9_darwin_arm64.tar.gz"
+      sha256 "a0e71f7c5c9086cdd7c632e07ed54d29256c940ab1cdf9af3fbf6229ccfe699a"
 
       define_method(:install) do
         bin.install "agency"
@@ -28,15 +28,15 @@ class Agency < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc1/agency_0.2.0-rc1_linux_amd64.tar.gz"
-      sha256 "f0a9123df6f16e940a64a6faf6e98204cdd1da34c4ca0a8fd8b50ee395c4d7a5"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc9/agency_0.2.0-rc9_linux_amd64.tar.gz"
+      sha256 "0f8c6ecbe2f441eb7ad70e6f93091f87e69a66b54053270b882329e96a1296e2"
       define_method(:install) do
         bin.install "agency"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc1/agency_0.2.0-rc1_linux_arm64.tar.gz"
-      sha256 "477068b297aa79c89495394ae9a4b7760943932a8b627cedb026afaf4cac02c2"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.0-rc9/agency_0.2.0-rc9_linux_arm64.tar.gz"
+      sha256 "677081e0cc5c100573f3cbfacfc7f26bdfd4f97a9b6d85a4bd29c8e7c6041a2f"
       define_method(:install) do
         bin.install "agency"
       end
