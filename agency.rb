@@ -5,42 +5,63 @@
 class Agency < Formula
   desc "Agency — An operating system for AI agents"
   homepage "https://github.com/geoffbelknap/agency"
-  version "0.2.2"
+  version "0.3.0"
+
+  depends_on "e2fsprogs"
+  depends_on "node"
+  depends_on "python"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.2/agency_0.2.2_darwin_amd64.tar.gz"
-      sha256 "310ba74df3e252448efa7073781f4951390421303e428c086b21317987f9bd90"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.0/agency_0.3.0_darwin_amd64.tar.gz"
+      sha256 "5aa5ce46a6cebb1eb706c346717ae484b9d5e6627687709c87b1b4ec69197b3a"
 
       define_method(:install) do
         bin.install "agency"
+        pkgshare.install "services"
+        pkgshare.install "scripts"
+        pkgshare.install "web"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.2/agency_0.2.2_darwin_arm64.tar.gz"
-      sha256 "6a1b91f2fd01df0e2bd41c2aa4dcc481155f552dd40ed107ee29d0dade18db9b"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.0/agency_0.3.0_darwin_arm64.tar.gz"
+      sha256 "c03867f66f90800e1f3395149a7c32dd38001e9284f0380a2d8de888e43281a1"
 
       define_method(:install) do
         bin.install "agency"
+        pkgshare.install "services"
+        pkgshare.install "scripts"
+        pkgshare.install "web"
       end
     end
   end
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.2/agency_0.2.2_linux_amd64.tar.gz"
-      sha256 "3bb90ce08cc329357530d98d8fe09f7cb93720e3a12ad7fe82092f2ed7545999"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.0/agency_0.3.0_linux_amd64.tar.gz"
+      sha256 "926cf385a35cba3912713215a29296e859cd0c4762398ddd22cda42d6654b982"
       define_method(:install) do
         bin.install "agency"
+        pkgshare.install "services"
+        pkgshare.install "scripts"
+        pkgshare.install "web"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.2.2/agency_0.2.2_linux_arm64.tar.gz"
-      sha256 "9ea581f00bd34f78b121c57107270a363d91073e0f4818195e454e2518b20f8c"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.0/agency_0.3.0_linux_arm64.tar.gz"
+      sha256 "d67666112f3a65a793ebf6d08da4852c769acd51bde3c319c95b39b3abba0880"
       define_method(:install) do
         bin.install "agency"
+        pkgshare.install "services"
+        pkgshare.install "scripts"
+        pkgshare.install "web"
       end
     end
+  end
+
+  def post_install
+    ENV["AGENCY_PYTHON_VENV"] = "#{pkgshare}/.venv"
+    system "#{pkgshare}/scripts/install/host-dependencies.sh", "--skip-system-packages"
   end
 
   def caveats
@@ -48,6 +69,11 @@ class Agency < Formula
       Start here:
 
         agency quickstart
+
+      Runtime dependencies:
+        - python: host-managed infra services and egress Python environment
+        - e2fsprogs: mke2fs for microVM root filesystem creation
+        - node: local web UI build/preview for host-managed web
 
       Quick start guide: https://github.com/geoffbelknap/agency#readme
     EOS
