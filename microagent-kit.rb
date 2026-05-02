@@ -5,8 +5,8 @@ class MicroagentKit < Formula
   desc "Run Linux workspaces inside microVMs"
   homepage "https://github.com/geoffbelknap/microagent-kit"
   url "https://github.com/geoffbelknap/microagent-kit.git",
-      tag:      "v0.1.15",
-      revision: "3cc86425f15352649ce231deee9be930d182f0dd"
+      tag:      "v0.1.16",
+      revision: "c98470b3c990c11d028551ad1fb4b7121d6ca902"
 
   depends_on "go" => :build
   depends_on xcode: :build if OS.mac?
@@ -45,6 +45,7 @@ class MicroagentKit < Formula
 
   test do
     assert_match "microagent #{version}", shell_output("#{bin}/microagent version")
+    assert_match "microagent #{version}", shell_output("#{bin}/microagent -v")
     assert_match "image_ref is required", shell_output("#{bin}/microagent rootfs build 2>&1", 1)
     assert_match "microagent kernel", shell_output("#{bin}/microagent kernel help")
     assert_path_exists libexec/"microagent-guestinit-arm64"
