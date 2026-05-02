@@ -2,11 +2,11 @@
 # frozen_string_literal: true
 
 class MicroagentKit < Formula
-  desc "CLI and helper protocol for agent microVMs"
+  desc "Run Linux workspaces inside microVMs"
   homepage "https://github.com/geoffbelknap/microagent-kit"
   url "https://github.com/geoffbelknap/microagent-kit.git",
-      tag:      "v0.1.1",
-      revision: "3cffbdb19d1749595565631cffaf818e7037da1f"
+      tag:      "v0.1.2",
+      revision: "4d6590636b13b28092af8cdbb94c937ec26d53c4"
 
   depends_on "go" => :build
   depends_on xcode: :build
@@ -18,8 +18,25 @@ class MicroagentKit < Formula
       "-o", bin/"microagent",
       "./cmd/microagent"
 
+    with_env(GOOS: "linux", GOARCH: "arm64", CGO_ENABLED: "0") do
+      system "go", "build",
+        "-ldflags", "-s -w",
+        "-o", bin/"microagent-guestinit-arm64",
+        "./cmd/microagent-guestinit"
+    end
+
+    with_env(GOOS: "linux", GOARCH: "amd64", CGO_ENABLED: "0") do
+      system "go", "build",
+        "-ldflags", "-s -w",
+        "-o", bin/"microagent-guestinit-amd64",
+        "./cmd/microagent-guestinit"
+    end
+
     cd "helpers/applevf" do
       system "swift", "build", "--configuration", "release", "--disable-sandbox"
+      system "codesign", "-s", "-", "-f",
+        "--entitlements", "microagent-applevf-helper.entitlements",
+        ".build/release/microagent-applevf-helper"
       bin.install ".build/release/microagent-applevf-helper"
     end
   end
@@ -27,6 +44,8 @@ class MicroagentKit < Formula
   test do
     assert_match "microagent #{version}", shell_output("#{bin}/microagent version")
     assert_match "image_ref is required", shell_output("#{bin}/microagent rootfs build 2>&1", 1)
+    assert_path_exists bin/"microagent-guestinit-arm64"
+    assert_path_exists bin/"microagent-guestinit-amd64"
 
     output = pipe_output("#{bin}/microagent-applevf-helper", '{"command":"host"}', 0)
     assert_match '"ok" : true', output
