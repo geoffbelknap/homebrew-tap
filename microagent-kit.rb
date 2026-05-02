@@ -13,14 +13,18 @@ class MicroagentKit < Formula
   depends_on "e2fsprogs"
 
   on_linux do
-    resource "firecracker-aarch64" do
-      url "https://github.com/firecracker-microvm/firecracker/releases/download/v1.15.1/firecracker-v1.15.1-aarch64.tgz"
-      sha256 "00654ac1e702a22744121ea9f10a4f792ebd7c3a744cba587dfac9fcb79b41a5"
+    on_arm do
+      resource "firecracker" do
+        url "https://github.com/firecracker-microvm/firecracker/releases/download/v1.15.1/firecracker-v1.15.1-aarch64.tgz"
+        sha256 "00654ac1e702a22744121ea9f10a4f792ebd7c3a744cba587dfac9fcb79b41a5"
+      end
     end
 
-    resource "firecracker-x86_64" do
-      url "https://github.com/firecracker-microvm/firecracker/releases/download/v1.15.1/firecracker-v1.15.1-x86_64.tgz"
-      sha256 "d4a32ab2322d887ca1bc4a4e7afa9cc35393e6362dfc2b3becb389d362e4275a"
+    on_intel do
+      resource "firecracker" do
+        url "https://github.com/firecracker-microvm/firecracker/releases/download/v1.15.1/firecracker-v1.15.1-x86_64.tgz"
+        sha256 "d4a32ab2322d887ca1bc4a4e7afa9cc35393e6362dfc2b3becb389d362e4275a"
+      end
     end
   end
 
@@ -54,8 +58,8 @@ class MicroagentKit < Formula
       end
     else
       firecracker_arch = Hardware::CPU.arm? ? "aarch64" : "x86_64"
-      resource("firecracker-#{firecracker_arch}").stage do
-        libexec.install "release-v1.15.1-#{firecracker_arch}/firecracker-v1.15.1-#{firecracker_arch}" => "firecracker"
+      resource("firecracker").stage do
+        libexec.install "firecracker-v1.15.1-#{firecracker_arch}" => "firecracker"
       end
     end
   end
