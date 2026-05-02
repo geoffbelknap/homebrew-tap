@@ -5,19 +5,24 @@
 class AgencyRc < Formula
   desc "Agency — An operating system for AI agents (release candidate)"
   homepage "https://github.com/geoffbelknap/agency"
-  version "0.3.4-rc5"
+  version "0.3.4-rc6"
 
   depends_on "e2fsprogs"
   depends_on "python@3.14"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.4-rc5/agency_0.3.4-rc5_darwin_amd64.tar.gz"
-      sha256 "0223160550d88d532192eab04d7898c2bfb0da14eed57be34fb139f9cd5e24ba"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.4-rc6/agency_0.3.4-rc6_darwin_amd64.tar.gz"
+      sha256 "1502caf07b50793d683a79cc253b0502243d6c7540c0f529597153bdfc0647df"
 
       define_method(:install) do
         bin.install "agency"
         pkgshare.install "bin"
+        if OS.mac? && Hardware::CPU.arm?
+          resource("agency-apple-vf-helpers").stage do
+            (pkgshare/"bin").install Dir["bin/*"]
+          end
+        end
         pkgshare.install "images"
         pkgshare.install "services"
         pkgshare.install "scripts"
@@ -25,12 +30,17 @@ class AgencyRc < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.4-rc5/agency_0.3.4-rc5_darwin_arm64.tar.gz"
-      sha256 "d3087a25ecec2d90ab73904a85722a469dd71d5ad057e9c4261a9d0a94eac8db"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.4-rc6/agency_0.3.4-rc6_darwin_arm64.tar.gz"
+      sha256 "0e34d3a262a8546f28f6e0682a605162b680af73ff75289c9b15388aaf6ca0f5"
 
       define_method(:install) do
         bin.install "agency"
         pkgshare.install "bin"
+        if OS.mac? && Hardware::CPU.arm?
+          resource("agency-apple-vf-helpers").stage do
+            (pkgshare/"bin").install Dir["bin/*"]
+          end
+        end
         pkgshare.install "images"
         pkgshare.install "services"
         pkgshare.install "scripts"
@@ -41,11 +51,16 @@ class AgencyRc < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.4-rc5/agency_0.3.4-rc5_linux_amd64.tar.gz"
-      sha256 "ded4d3918b5e755b32bef5ddc708aceefe4738af3f3fd530826fc82363411617"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.4-rc6/agency_0.3.4-rc6_linux_amd64.tar.gz"
+      sha256 "80a70a4c74eadd55e717e13d2406bae5250093eb835af891798efbf5bcc5975f"
       define_method(:install) do
         bin.install "agency"
         pkgshare.install "bin"
+        if OS.mac? && Hardware::CPU.arm?
+          resource("agency-apple-vf-helpers").stage do
+            (pkgshare/"bin").install Dir["bin/*"]
+          end
+        end
         pkgshare.install "images"
         pkgshare.install "services"
         pkgshare.install "scripts"
@@ -53,11 +68,16 @@ class AgencyRc < Formula
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.4-rc5/agency_0.3.4-rc5_linux_arm64.tar.gz"
-      sha256 "4f3e8ed596b31eca9a49e4d1a81f7bc59f2cc4be51db8b523f7d81545ed9a19a"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.4-rc6/agency_0.3.4-rc6_linux_arm64.tar.gz"
+      sha256 "9451d45c7267c7d294bc57311c8d5e83e9cc4269f5af797fec56468fc96f197b"
       define_method(:install) do
         bin.install "agency"
         pkgshare.install "bin"
+        if OS.mac? && Hardware::CPU.arm?
+          resource("agency-apple-vf-helpers").stage do
+            (pkgshare/"bin").install Dir["bin/*"]
+          end
+        end
         pkgshare.install "images"
         pkgshare.install "services"
         pkgshare.install "scripts"
@@ -67,6 +87,15 @@ class AgencyRc < Formula
   end
 
   conflicts_with "agency"
+
+  on_macos do
+    on_arm do
+      resource "agency-apple-vf-helpers" do
+        url "https://github.com/geoffbelknap/agency/releases/download/agency-apple-vf-helpers-0.1.0-r1/agency-apple-vf-helpers-0.1.0-darwin-arm64.tar.gz"
+        sha256 "1623d4fbf46b688a8480054dace438a24d1f21cd62eb129e6321d476eed91902"
+      end
+    end
+  end
 
   def post_install
     ENV["AGENCY_PYTHON_VENV"] = "#{libexec}/venv"
@@ -86,9 +115,13 @@ class AgencyRc < Formula
         - python@3.14: host-managed infra services and egress Python environment
         - e2fsprogs: mke2fs for microVM root filesystem creation
 
+      macOS Apple silicon Apple VF setup:
+        agency quickstart uses the packaged signed Apple VF helper bundle and
+        provisions the pinned Agency guest kernel when it is missing.
+
       Linux and WSL Firecracker setup:
         agency quickstart provisions the pinned Firecracker binary and Agency
-        vmlinux artifact when they are missing. To provision them explicitly:
+        guest kernel artifact when they are missing. To provision them explicitly:
 
           agency runtime provision firecracker
 
