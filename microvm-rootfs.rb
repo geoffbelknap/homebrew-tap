@@ -56,6 +56,6 @@ class MicrovmRootfs < Formula
   end
 
   test do
-    system "#{bin}/microvm-rootfs", "version"
+    system bin/"microvm-rootfs", "version"
   end
 end
