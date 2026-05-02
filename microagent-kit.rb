@@ -8,6 +8,10 @@ class MicroagentKit < Formula
       tag:      "v0.1.17",
       revision: "e3b209407ab3b0b5fb8db2b562929862c49636b2"
 
+  depends_on "go" => :build
+  depends_on xcode: :build if OS.mac?
+  depends_on "e2fsprogs"
+
   on_linux do
     resource "firecracker-aarch64" do
       url "https://github.com/firecracker-microvm/firecracker/releases/download/v1.15.1/firecracker-v1.15.1-aarch64.tgz"
@@ -19,10 +23,6 @@ class MicroagentKit < Formula
       sha256 "d4a32ab2322d887ca1bc4a4e7afa9cc35393e6362dfc2b3becb389d362e4275a"
     end
   end
-
-  depends_on "go" => :build
-  depends_on xcode: :build if OS.mac?
-  depends_on "e2fsprogs"
 
   def install
     system "go", "build",
