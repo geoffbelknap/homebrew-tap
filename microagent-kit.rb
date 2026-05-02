@@ -6,7 +6,7 @@ class MicroagentKit < Formula
   homepage "https://github.com/geoffbelknap/microagent-kit"
   url "https://github.com/geoffbelknap/microagent-kit.git",
       tag:      "v0.1.2",
-      revision: "4d6590636b13b28092af8cdbb94c937ec26d53c4"
+      revision: "4d65906031d181c28a1cabec988b961d4ff6c444"
 
   depends_on "go" => :build
   depends_on xcode: :build
