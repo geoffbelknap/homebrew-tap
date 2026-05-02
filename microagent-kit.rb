@@ -5,8 +5,8 @@ class MicroagentKit < Formula
   desc "Run Linux workspaces inside microVMs"
   homepage "https://github.com/geoffbelknap/microagent-kit"
   url "https://github.com/geoffbelknap/microagent-kit.git",
-      tag:      "v0.1.17",
-      revision: "e3b209407ab3b0b5fb8db2b562929862c49636b2"
+      tag:      "v0.1.18",
+      revision: "df10a53e1589110b98843247880b394bf7909bf6"
 
   depends_on "go" => :build
   depends_on xcode: :build if OS.mac?
