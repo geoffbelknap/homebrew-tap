@@ -12,7 +12,7 @@ class MicrovmRootfs < Formula
   on_macos do
     if Hardware::CPU.intel?
       url "https://github.com/geoffbelknap/microvm-rootfs/releases/download/v0.1.0/microvm-rootfs_0.1.0_darwin_amd64.tar.gz"
-      sha256 "936f9d6074c76debb8690a6a24b56158352c88556637eb899e951a496a9f9e2d"
+      sha256 "b3bb7f989ef5382193f9717f1b284dea8a3f49d663d8f5163a953d5384f364ec"
 
       define_method(:install) do
         bin.install "microvm-rootfs"
@@ -20,7 +20,7 @@ class MicrovmRootfs < Formula
     end
     if Hardware::CPU.arm?
       url "https://github.com/geoffbelknap/microvm-rootfs/releases/download/v0.1.0/microvm-rootfs_0.1.0_darwin_arm64.tar.gz"
-      sha256 "1bba761eac6bf89518b1eea47b1ede8c47b1b645a1296649573fd4233e460073"
+      sha256 "d7a487cfdf4cd821431c18e7a9331d8319f4ed9cf138ce9877dd2fc353339d96"
 
       define_method(:install) do
         bin.install "microvm-rootfs"
@@ -31,14 +31,14 @@ class MicrovmRootfs < Formula
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
       url "https://github.com/geoffbelknap/microvm-rootfs/releases/download/v0.1.0/microvm-rootfs_0.1.0_linux_amd64.tar.gz"
-      sha256 "554913e1a003c8df6edb85678598b0a1509597c1f71354c79e35e667ac3f69a4"
+      sha256 "f7883b2a9f4a6a956f81aac7474b36d3a57db876cc9292ef142742493b4c31a5"
       define_method(:install) do
         bin.install "microvm-rootfs"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/geoffbelknap/microvm-rootfs/releases/download/v0.1.0/microvm-rootfs_0.1.0_linux_arm64.tar.gz"
-      sha256 "16a7f490dd49192731e6ad6681151cf35439cdb318bb9436d6d4ed2c51e89564"
+      sha256 "0687939fa73d163e80f3be8cc52c64d0a7446537a2647d783206b3a99b336335"
       define_method(:install) do
         bin.install "microvm-rootfs"
       end
