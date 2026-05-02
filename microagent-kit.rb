@@ -7,7 +7,6 @@ class MicroagentKit < Formula
   url "https://github.com/geoffbelknap/microagent-kit.git",
       tag:      "v0.1.0",
       revision: "4a1e73688ce8b8051c700704c7bf0138ea3281da"
-  version "0.1.0"
 
   depends_on "go" => :build
   depends_on xcode: :build
@@ -19,7 +18,7 @@ class MicroagentKit < Formula
       "./cmd/microagent"
 
     cd "helpers/applevf" do
-      system "swift", "build", "--configuration", "release"
+      system "swift", "build", "--configuration", "release", "--disable-sandbox"
       bin.install ".build/release/microagent-applevf-helper"
     end
   end
