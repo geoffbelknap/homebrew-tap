@@ -5,8 +5,8 @@ class MicroagentKit < Formula
   desc "Run Linux workspaces inside microVMs"
   homepage "https://github.com/geoffbelknap/microagent-kit"
   url "https://github.com/geoffbelknap/microagent-kit.git",
-      tag:      "v0.1.25",
-      revision: "7558ad6d49bc1afac1d7570adcec5b7555b18791"
+      tag:      "v0.1.26",
+      revision: "ea198fd901ee1247f9afb1620dde5cad6455ee05"
 
   depends_on "go" => :build
   depends_on xcode: :build if OS.mac?
@@ -49,12 +49,12 @@ class MicroagentKit < Formula
     end
 
     if OS.mac?
-      cd "helpers/applevf" do
+      cd "supervisors/applevf" do
         system "swift", "build", "--configuration", "release", "--disable-sandbox"
         system "codesign", "-s", "-", "-f",
-               "--entitlements", "microagent-applevf-helper.entitlements",
-               ".build/release/microagent-applevf-helper"
-        bin.install ".build/release/microagent-applevf-helper"
+               "--entitlements", "microagent-applevf-supervisor.entitlements",
+               ".build/release/microagent-applevf-supervisor"
+        bin.install ".build/release/microagent-applevf-supervisor"
       end
     else
       firecracker_arch = Hardware::CPU.arm? ? "aarch64" : "x86_64"
@@ -73,7 +73,7 @@ class MicroagentKit < Formula
     assert_path_exists libexec/"microagent-guestinit-amd64"
 
     if OS.mac?
-      output = pipe_output("#{bin}/microagent-applevf-helper", '{"command":"host"}', 0)
+      output = pipe_output("#{bin}/microagent-applevf-supervisor", '{"command":"host"}', 0)
       assert_match '"ok" : true', output
       assert_match '"backend" : "apple-vf"', output
     else
