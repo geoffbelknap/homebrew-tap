@@ -5,8 +5,8 @@ class MicroagentKit < Formula
   desc "Run Linux workspaces inside microVMs"
   homepage "https://github.com/geoffbelknap/microagent-kit"
   url "https://github.com/geoffbelknap/microagent-kit.git",
-      tag:      "v0.1.12",
-      revision: "7926f02e36f276d999b81d40378131b7e0fa4f9a"
+      tag:      "v0.1.14",
+      revision: "281dc41a19cbb548b2c1f9ed6b28266fc9ab2746"
 
   depends_on "go" => :build
   depends_on xcode: :build
@@ -21,14 +21,14 @@ class MicroagentKit < Formula
     with_env(GOOS: "linux", GOARCH: "arm64", CGO_ENABLED: "0") do
       system "go", "build",
         "-ldflags", "-s -w",
-        "-o", bin/"microagent-guestinit-arm64",
+        "-o", libexec/"microagent-guestinit-arm64",
         "./cmd/microagent-guestinit"
     end
 
     with_env(GOOS: "linux", GOARCH: "amd64", CGO_ENABLED: "0") do
       system "go", "build",
         "-ldflags", "-s -w",
-        "-o", bin/"microagent-guestinit-amd64",
+        "-o", libexec/"microagent-guestinit-amd64",
         "./cmd/microagent-guestinit"
     end
 
@@ -45,8 +45,8 @@ class MicroagentKit < Formula
     assert_match "microagent #{version}", shell_output("#{bin}/microagent version")
     assert_match "image_ref is required", shell_output("#{bin}/microagent rootfs build 2>&1", 1)
     assert_match "microagent kernel", shell_output("#{bin}/microagent kernel help")
-    assert_path_exists bin/"microagent-guestinit-arm64"
-    assert_path_exists bin/"microagent-guestinit-amd64"
+    assert_path_exists libexec/"microagent-guestinit-arm64"
+    assert_path_exists libexec/"microagent-guestinit-amd64"
 
     output = pipe_output("#{bin}/microagent-applevf-helper", '{"command":"host"}', 0)
     assert_match '"ok" : true', output
