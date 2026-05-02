@@ -5,8 +5,20 @@ class MicroagentKit < Formula
   desc "Run Linux workspaces inside microVMs"
   homepage "https://github.com/geoffbelknap/microagent-kit"
   url "https://github.com/geoffbelknap/microagent-kit.git",
-      tag:      "v0.1.16",
-      revision: "c98470b3c990c11d028551ad1fb4b7121d6ca902"
+      tag:      "v0.1.17",
+      revision: "e3b209407ab3b0b5fb8db2b562929862c49636b2"
+
+  on_linux do
+    resource "firecracker-aarch64" do
+      url "https://github.com/firecracker-microvm/firecracker/releases/download/v1.15.1/firecracker-v1.15.1-aarch64.tgz"
+      sha256 "00654ac1e702a22744121ea9f10a4f792ebd7c3a744cba587dfac9fcb79b41a5"
+    end
+
+    resource "firecracker-x86_64" do
+      url "https://github.com/firecracker-microvm/firecracker/releases/download/v1.15.1/firecracker-v1.15.1-x86_64.tgz"
+      sha256 "d4a32ab2322d887ca1bc4a4e7afa9cc35393e6362dfc2b3becb389d362e4275a"
+    end
+  end
 
   depends_on "go" => :build
   depends_on xcode: :build if OS.mac?
@@ -40,6 +52,11 @@ class MicroagentKit < Formula
                ".build/release/microagent-applevf-helper"
         bin.install ".build/release/microagent-applevf-helper"
       end
+    else
+      firecracker_arch = Hardware::CPU.arm? ? "aarch64" : "x86_64"
+      resource("firecracker-#{firecracker_arch}").stage do
+        libexec.install "release-v1.15.1-#{firecracker_arch}/firecracker-v1.15.1-#{firecracker_arch}" => "firecracker"
+      end
     end
   end
 
@@ -55,6 +72,9 @@ class MicroagentKit < Formula
       output = pipe_output("#{bin}/microagent-applevf-helper", '{"command":"host"}', 0)
       assert_match '"ok" : true', output
       assert_match '"backend" : "apple-vf"', output
+    else
+      assert_path_exists libexec/"firecracker"
+      assert_match "Firecracker", shell_output("#{libexec}/firecracker --version")
     end
   end
 end
