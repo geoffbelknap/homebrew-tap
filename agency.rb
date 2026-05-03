@@ -5,7 +5,7 @@
 class Agency < Formula
   desc "Agency — An operating system for AI agents"
   homepage "https://github.com/geoffbelknap/agency"
-  version "0.3.6"
+  version "0.3.7"
 
   depends_on "e2fsprogs"
   depends_on "geoffbelknap/tap/microagent-kit"
@@ -13,8 +13,8 @@ class Agency < Formula
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.6/agency_0.3.6_darwin_amd64.tar.gz"
-      sha256 "3e6744f28140e52cdac596afb4d588c0566bd566c7bd558c3581c34413ac8bbb"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.7/agency_0.3.7_darwin_amd64.tar.gz"
+      sha256 "50f97d624773df22d4bbbcde92af242c83c9d32814be605d92b728a339650ff9"
 
       define_method(:install) do
         bin.install "agency"
@@ -28,8 +28,8 @@ class Agency < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.6/agency_0.3.6_darwin_arm64.tar.gz"
-      sha256 "06aa67044e5b7ddbd24520234244bc15c12e20d852a776e7b51e577d56c518ab"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.7/agency_0.3.7_darwin_arm64.tar.gz"
+      sha256 "69c5c03d60d0b9cd0939aebc97db8d4983d825821faefaa57ec293610031cb36"
 
       define_method(:install) do
         bin.install "agency"
@@ -46,8 +46,8 @@ class Agency < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.6/agency_0.3.6_linux_amd64.tar.gz"
-      sha256 "5829ef3ef55eb4856b8528cf5890e3f8de757ac74ef8aa36035571e23d82e9e6"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.7/agency_0.3.7_linux_amd64.tar.gz"
+      sha256 "3cd1aac07f55d9004a08c1d4ad69afdfde168be7515de6dce39ff84bae16003f"
       define_method(:install) do
         bin.install "agency"
         bin.install "agency-enforcer-host"
@@ -60,8 +60,8 @@ class Agency < Formula
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.6/agency_0.3.6_linux_arm64.tar.gz"
-      sha256 "ae2d81a5b674fad65ed941fff7807366f554849b691aa8dc070aa392404134a6"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.7/agency_0.3.7_linux_arm64.tar.gz"
+      sha256 "1915b36f3ec9a2eeb023c89f33b1c9ffa0e0b260ef6898c1d9af3b73378a828a"
       define_method(:install) do
         bin.install "agency"
         bin.install "agency-enforcer-host"
@@ -84,19 +84,9 @@ class Agency < Formula
 
   def caveats
     <<~EOS
-      Start here:
+      Start Agency with:
 
         agency quickstart
-
-      Runtime dependencies:
-        - microagent-kit: microVM workspace runtime
-        - python@3.14: host-managed infra services and egress Python environment
-        - e2fsprogs: mke2fs for microVM root filesystem creation
-
-      Microagent uses Apple's Virtualization framework on macOS Apple silicon
-      and Firecracker on Linux/WSL.
-
-      Quick start guide: https://github.com/geoffbelknap/agency#readme
     EOS
   end
 
