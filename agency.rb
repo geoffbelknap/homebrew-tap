@@ -5,7 +5,7 @@
 class Agency < Formula
   desc "Agency — An operating system for AI agents"
   homepage "https://github.com/geoffbelknap/agency"
-  version "0.3.4"
+  version "0.3.5"
 
   depends_on "e2fsprogs"
   depends_on "geoffbelknap/tap/microagent-kit"
@@ -13,13 +13,13 @@ class Agency < Formula
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.4/agency_0.3.4_darwin_amd64.tar.gz"
-      sha256 "d25d9520516b898f38bc6ed53672102cac64ea1169c998564c43157a7c9b6258"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.5/agency_0.3.5_darwin_amd64.tar.gz"
+      sha256 "3e40b389e20cde5426a69ec4de4702469703978a2b85e59438fff1a77d6d2918"
 
       define_method(:install) do
         bin.install "agency"
         bin.install "agency-enforcer-host"
-        (pkgshare/"bin").install "agency-enforcer-host"
+        (pkgshare/"bin").install_symlink bin/"agency-enforcer-host"
         pkgshare.install "bin"
         pkgshare.install "images"
         pkgshare.install "services"
@@ -28,13 +28,13 @@ class Agency < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.4/agency_0.3.4_darwin_arm64.tar.gz"
-      sha256 "1c2df8d1397b4a56aafe78ac8c2c0e970e1568f0952c10022ac29d03df58a58d"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.5/agency_0.3.5_darwin_arm64.tar.gz"
+      sha256 "f877d5763143763f385a70411729a9604d84c81cbdb6518205ee5437d676d7df"
 
       define_method(:install) do
         bin.install "agency"
         bin.install "agency-enforcer-host"
-        (pkgshare/"bin").install "agency-enforcer-host"
+        (pkgshare/"bin").install_symlink bin/"agency-enforcer-host"
         pkgshare.install "bin"
         pkgshare.install "images"
         pkgshare.install "services"
@@ -46,12 +46,12 @@ class Agency < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.4/agency_0.3.4_linux_amd64.tar.gz"
-      sha256 "a48bf71b5b1fcf03440142f6e85023b38459802cfe3a563a9026edb79ea9d86a"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.5/agency_0.3.5_linux_amd64.tar.gz"
+      sha256 "217f87d3cf93fd590659b55a49aaecb830a1d511437c6e90a91c6c5195485875"
       define_method(:install) do
         bin.install "agency"
         bin.install "agency-enforcer-host"
-        (pkgshare/"bin").install "agency-enforcer-host"
+        (pkgshare/"bin").install_symlink bin/"agency-enforcer-host"
         pkgshare.install "bin"
         pkgshare.install "images"
         pkgshare.install "services"
@@ -60,12 +60,12 @@ class Agency < Formula
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.4/agency_0.3.4_linux_arm64.tar.gz"
-      sha256 "1d136e7ce85a457debb04c0d7ac2c165cf4fc091c5adc059c735e26732fc52b7"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.5/agency_0.3.5_linux_arm64.tar.gz"
+      sha256 "347bdfd5216df679eeee1d4b116f0b1c1e36875fb8e5a2c3995854b25ca5ce27"
       define_method(:install) do
         bin.install "agency"
         bin.install "agency-enforcer-host"
-        (pkgshare/"bin").install "agency-enforcer-host"
+        (pkgshare/"bin").install_symlink bin/"agency-enforcer-host"
         pkgshare.install "bin"
         pkgshare.install "images"
         pkgshare.install "services"
