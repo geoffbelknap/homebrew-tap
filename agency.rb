@@ -8,6 +8,7 @@ class Agency < Formula
   version "0.3.3"
 
   depends_on "e2fsprogs"
+  depends_on "geoffbelknap/tap/microagent-kit"
   depends_on "python"
 
   on_macos do
@@ -70,6 +71,7 @@ class Agency < Formula
         agency quickstart
 
       Runtime dependencies:
+        - microagent-kit: microVM workspace runtime
         - python: host-managed infra services and egress Python environment
         - e2fsprogs: mke2fs for microVM root filesystem creation
 

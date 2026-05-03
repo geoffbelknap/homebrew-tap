@@ -64,6 +64,24 @@ class MicroagentKit < Formula
     end
   end
 
+  def post_install
+    if (OS.mac? && Hardware::CPU.arm?) || (OS.linux? && Hardware::CPU.intel? && Hardware::CPU.is_64_bit?)
+      system bin/"microagent", "kernel", "install"
+    end
+  end
+
+  def caveats
+    <<~EOS
+      Microagent installs its default kernel during Homebrew post-install on supported hosts:
+        - macOS arm64: Apple Virtualization Framework kernel
+        - Linux x86_64: Firecracker kernel
+
+      Advanced users can replace it with:
+
+        microagent kernel install --from /path/to/Image --sha256 <sha256>
+    EOS
+  end
+
   test do
     assert_match "microagent #{version}", shell_output("#{bin}/microagent version")
     assert_match "microagent #{version}", shell_output("#{bin}/microagent -v")
