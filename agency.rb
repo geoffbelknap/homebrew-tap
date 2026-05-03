@@ -5,30 +5,38 @@
 class Agency < Formula
   desc "Agency — An operating system for AI agents"
   homepage "https://github.com/geoffbelknap/agency"
-  version "0.3.3"
+  version "0.3.4"
 
   depends_on "e2fsprogs"
   depends_on "geoffbelknap/tap/microagent-kit"
-  depends_on "python"
+  depends_on "python@3.14"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.3/agency_0.3.3_darwin_amd64.tar.gz"
-      sha256 "5adc52afdf54d0552a07be7e2e1b408f790003e69e2abac50fae2e55698a1cd8"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.4/agency_0.3.4_darwin_amd64.tar.gz"
+      sha256 "d25d9520516b898f38bc6ed53672102cac64ea1169c998564c43157a7c9b6258"
 
       define_method(:install) do
         bin.install "agency"
+        bin.install "agency-enforcer-host"
+        (pkgshare/"bin").install "agency-enforcer-host"
+        pkgshare.install "bin"
+        pkgshare.install "images"
         pkgshare.install "services"
         pkgshare.install "scripts"
         pkgshare.install "web"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.3/agency_0.3.3_darwin_arm64.tar.gz"
-      sha256 "5a1072c083e96e6efb94b1ee18ca06917ab8f13d68532d151b8293c4c82c3bc1"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.4/agency_0.3.4_darwin_arm64.tar.gz"
+      sha256 "1c2df8d1397b4a56aafe78ac8c2c0e970e1568f0952c10022ac29d03df58a58d"
 
       define_method(:install) do
         bin.install "agency"
+        bin.install "agency-enforcer-host"
+        (pkgshare/"bin").install "agency-enforcer-host"
+        pkgshare.install "bin"
+        pkgshare.install "images"
         pkgshare.install "services"
         pkgshare.install "scripts"
         pkgshare.install "web"
@@ -38,20 +46,28 @@ class Agency < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.3/agency_0.3.3_linux_amd64.tar.gz"
-      sha256 "154ce97bf819c373ad1cd3723df0bcaa4b8503e4428a7f70b5735647fa7736de"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.4/agency_0.3.4_linux_amd64.tar.gz"
+      sha256 "a48bf71b5b1fcf03440142f6e85023b38459802cfe3a563a9026edb79ea9d86a"
       define_method(:install) do
         bin.install "agency"
+        bin.install "agency-enforcer-host"
+        (pkgshare/"bin").install "agency-enforcer-host"
+        pkgshare.install "bin"
+        pkgshare.install "images"
         pkgshare.install "services"
         pkgshare.install "scripts"
         pkgshare.install "web"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.3/agency_0.3.3_linux_arm64.tar.gz"
-      sha256 "004d397d2d2b1d04e5cbc4bc077889a33bcb56538bc101585625da3a64fe3e8a"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.4/agency_0.3.4_linux_arm64.tar.gz"
+      sha256 "1d136e7ce85a457debb04c0d7ac2c165cf4fc091c5adc059c735e26732fc52b7"
       define_method(:install) do
         bin.install "agency"
+        bin.install "agency-enforcer-host"
+        (pkgshare/"bin").install "agency-enforcer-host"
+        pkgshare.install "bin"
+        pkgshare.install "images"
         pkgshare.install "services"
         pkgshare.install "scripts"
         pkgshare.install "web"
@@ -59,8 +75,10 @@ class Agency < Formula
     end
   end
 
+  conflicts_with "agency-rc"
+
   def post_install
-    ENV["AGENCY_PYTHON_VENV"] = "#{pkgshare}/.venv"
+    ENV["AGENCY_PYTHON_VENV"] = "#{libexec}/venv"
     system "#{pkgshare}/scripts/install/host-dependencies.sh", "--skip-system-packages"
   end
 
@@ -72,8 +90,11 @@ class Agency < Formula
 
       Runtime dependencies:
         - microagent-kit: microVM workspace runtime
-        - python: host-managed infra services and egress Python environment
+        - python@3.14: host-managed infra services and egress Python environment
         - e2fsprogs: mke2fs for microVM root filesystem creation
+
+      Microagent uses Apple's Virtualization framework on macOS Apple silicon
+      and Firecracker on Linux/WSL.
 
       Quick start guide: https://github.com/geoffbelknap/agency#readme
     EOS
