@@ -10,8 +10,8 @@ class MicroagentKit < Formula
 
   bottle do
     root_url "https://github.com/geoffbelknap/homebrew-tap/releases/download/microagent-kit-0.1.31"
-    rebuild 3
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "1580f31c440e4fde73f25c22f4a969534ebdfa3d125977ca1eb45d1c55bba350"
+    rebuild 4
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "6d15b1d64b8a8591a65b2cd69b9009f9aeef444968ef8f50766dd588a775788c"
   end
 
   depends_on "go" => :build
