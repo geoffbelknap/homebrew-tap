@@ -5,7 +5,7 @@
 class Agency < Formula
   desc "Agency — An operating system for AI agents"
   homepage "https://github.com/geoffbelknap/agency"
-  version "0.3.16"
+  version "0.3.17"
 
   depends_on "e2fsprogs"
   depends_on "geoffbelknap/tap/microagent-kit"
@@ -13,8 +13,8 @@ class Agency < Formula
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.16/agency_0.3.16_darwin_amd64.tar.gz"
-      sha256 "1566094318d001b43c347e05acad031fabafc107d2541d326bdf59455adc15b4"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.17/agency_0.3.17_darwin_amd64.tar.gz"
+      sha256 "d1cf03b9c7eec5ffc59202f2103b859333d376af19fb57397deec520cfafdd38"
 
       define_method(:install) do
         bin.install "agency"
@@ -32,8 +32,8 @@ class Agency < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.16/agency_0.3.16_darwin_arm64.tar.gz"
-      sha256 "aa2ed8211569f9e2a1bebe53d75192a6d745287bd87ee59c55240577e2ab1554"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.17/agency_0.3.17_darwin_arm64.tar.gz"
+      sha256 "4c385f49bce2167f99d8cf74440238eef4155e00afff11a259c5ef39bfe14f99"
 
       define_method(:install) do
         bin.install "agency"
@@ -54,8 +54,8 @@ class Agency < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.16/agency_0.3.16_linux_amd64.tar.gz"
-      sha256 "af7e2e1a61b64fcc0950d18d42678a59bfb4d386674f07b99cccf829c1ac1622"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.17/agency_0.3.17_linux_amd64.tar.gz"
+      sha256 "01ce5ff02700917976837bc529ecdd6c109deb7b30909a0762b4d34653c8c57a"
       define_method(:install) do
         bin.install "agency"
         bin.install "agency-enforcer-host"
@@ -72,8 +72,8 @@ class Agency < Formula
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.16/agency_0.3.16_linux_arm64.tar.gz"
-      sha256 "4fefed8e400f5b66b407cf3b448b044e84741bd219e4a97521bdb8fec47c6f8e"
+      url "https://github.com/geoffbelknap/agency/releases/download/v0.3.17/agency_0.3.17_linux_arm64.tar.gz"
+      sha256 "aaad0306ea3e3ca5c80b95a495015c9f17225943bfbd60cccb05086a43094d6b"
       define_method(:install) do
         bin.install "agency"
         bin.install "agency-enforcer-host"
@@ -100,8 +100,8 @@ class Agency < Formula
   resource "python-wheelhouse-darwin-arm64" do
     on_macos do
       if Hardware::CPU.arm?
-        url "https://github.com/geoffbelknap/agency/releases/download/v0.3.16/agency-python-wheelhouse-darwin-arm64.tar.gz"
-        sha256 "eb24f17ba8b42b2a2338518e34af0276a8a05191d924787e3ea1caa3503f8430"
+        url "https://github.com/geoffbelknap/agency/releases/download/v0.3.17/agency-python-wheelhouse-darwin-arm64.tar.gz"
+        sha256 "4e3f34ad7896c2b6ddfc004657b5a4e0387509e0e9e3f49d8d211970fe1ed535"
       end
     end
   end
@@ -109,8 +109,8 @@ class Agency < Formula
   resource "python-wheelhouse-darwin-amd64" do
     on_macos do
       if Hardware::CPU.intel?
-        url "https://github.com/geoffbelknap/agency/releases/download/v0.3.16/agency-python-wheelhouse-darwin-amd64.tar.gz"
-        sha256 "add63e94c8b10c10e3ba0081de22f2bdd1a069e3fcbd666f2564c014c1f0c1c4"
+        url "https://github.com/geoffbelknap/agency/releases/download/v0.3.17/agency-python-wheelhouse-darwin-amd64.tar.gz"
+        sha256 "ac0e19a0cd3946be24d9004988d4febab6d426d9792d962c9fabf080a684afe2"
       end
     end
   end
@@ -118,8 +118,8 @@ class Agency < Formula
   resource "python-wheelhouse-linux-amd64" do
     on_linux do
       if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-        url "https://github.com/geoffbelknap/agency/releases/download/v0.3.16/agency-python-wheelhouse-linux-amd64.tar.gz"
-        sha256 "e1d8a7a47bc4ffb902ea05de17739a79ab3c76755bcd816b17c9a9991a1fb104"
+        url "https://github.com/geoffbelknap/agency/releases/download/v0.3.17/agency-python-wheelhouse-linux-amd64.tar.gz"
+        sha256 "b8cd8f80a9fd50aea6473a3d6f6b5fe0f3d720b437620d10c996b4fb242276b3"
       end
     end
   end
@@ -127,8 +127,8 @@ class Agency < Formula
   resource "python-wheelhouse-linux-arm64" do
     on_linux do
       if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-        url "https://github.com/geoffbelknap/agency/releases/download/v0.3.16/agency-python-wheelhouse-linux-arm64.tar.gz"
-        sha256 "e0de921fca742dccb91572c8ea83499c43f0a3f002a9ddb4671e0adb16479833"
+        url "https://github.com/geoffbelknap/agency/releases/download/v0.3.17/agency-python-wheelhouse-linux-arm64.tar.gz"
+        sha256 "438ab62b89c8b81daf8ff7704976591e825e2f8c91522b8444f9b9eafb14f3b2"
       end
     end
   end
