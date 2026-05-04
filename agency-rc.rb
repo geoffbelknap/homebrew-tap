@@ -148,10 +148,13 @@ class AgencyRc < Formula
 
         agency quickstart
 
-      On Linux and WSL2, Agency uses microagent with Firecracker. `agency
-      quickstart` and `agency admin doctor` check whether the current user can
-      open /dev/kvm read/write. If either command reports KVM access failure,
+      On Linux and WSL2, Agency uses microagent with Firecracker. The operator
+      account must be able to open /dev/kvm read/write. To test this manually,
       run:
+
+        test -r /dev/kvm && test -w /dev/kvm
+
+      If that command fails, run:
 
         sudo usermod -aG kvm $USER
 
