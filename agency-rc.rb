@@ -8,6 +8,12 @@ class AgencyRc < Formula
   desc "Agency — An operating system for AI agents (release candidate)"
   homepage "https://github.com/geoffbelknap/agency"
 
+  bottle do
+    root_url "https://github.com/geoffbelknap/homebrew-tap/releases/download/agency-rc-0.3.19-rc2"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "576224e13e4b408ee54a35ebde74f5b7908f7a861a73cde7c88fbdfbcc7bfd72"
+  end
+
   depends_on "e2fsprogs"
   depends_on "geoffbelknap/tap/microagent-kit"
   depends_on "python@3.14"
