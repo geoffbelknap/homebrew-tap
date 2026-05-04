@@ -10,7 +10,6 @@ class MicroagentKit < Formula
 
   depends_on "go" => :build
   depends_on xcode: :build if OS.mac?
-  depends_on "e2fsprogs"
 
   on_macos do
     on_arm do
@@ -22,6 +21,8 @@ class MicroagentKit < Formula
   end
 
   on_linux do
+    depends_on "e2fsprogs"
+
     on_arm do
       resource "firecracker" do
         url "https://github.com/firecracker-microvm/firecracker/releases/download/v1.15.1/firecracker-v1.15.1-aarch64.tgz"
@@ -48,17 +49,11 @@ class MicroagentKit < Formula
            "-o", bin/"microagent",
            "./cmd/microagent"
 
-    with_env(GOOS: "linux", GOARCH: "arm64", CGO_ENABLED: "0") do
+    guest_arch = Hardware::CPU.arm? ? "arm64" : "amd64"
+    with_env(GOOS: "linux", GOARCH: guest_arch, CGO_ENABLED: "0") do
       system "go", "build",
              "-ldflags", "-s -w",
-             "-o", libexec/"microagent-guestinit-arm64",
-             "./cmd/microagent-guestinit"
-    end
-
-    with_env(GOOS: "linux", GOARCH: "amd64", CGO_ENABLED: "0") do
-      system "go", "build",
-             "-ldflags", "-s -w",
-             "-o", libexec/"microagent-guestinit-amd64",
+             "-o", libexec/"microagent-guestinit-#{guest_arch}",
              "./cmd/microagent-guestinit"
     end
 
@@ -105,8 +100,8 @@ class MicroagentKit < Formula
     assert_match "microagent #{version}", shell_output("#{bin}/microagent -v")
     assert_match "image_ref is required", shell_output("#{bin}/microagent rootfs build 2>&1", 1)
     assert_match "microagent kernel", shell_output("#{bin}/microagent kernel help")
-    assert_path_exists libexec/"microagent-guestinit-arm64"
-    assert_path_exists libexec/"microagent-guestinit-amd64"
+    guest_arch = Hardware::CPU.arm? ? "arm64" : "amd64"
+    assert_path_exists libexec/"microagent-guestinit-#{guest_arch}"
 
     if OS.mac?
       output = pipe_output("#{bin}/microagent-applevf-supervisor", '{"command":"host"}', 0)
