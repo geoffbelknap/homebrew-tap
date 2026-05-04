@@ -9,6 +9,11 @@ class AgencyRc < Formula
   homepage "https://github.com/geoffbelknap/agency"
   version "0.3.18"
 
+  bottle do
+    root_url "https://github.com/geoffbelknap/homebrew-tap/releases/download/agency-rc-0.3.18"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "458fa63bce241b4423501c0d922f254f0d6ce0b286fc7aae82820e072b08b62c"
+  end
+
   depends_on "e2fsprogs"
   depends_on "geoffbelknap/tap/microagent-kit"
   depends_on "python@3.14"
