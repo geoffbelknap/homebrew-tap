@@ -28,6 +28,11 @@ class MicroagentKit < Formula
 
   on_linux do
     depends_on "e2fsprogs"
+    # `pasta` (from the `passt` package) backs the default `--network user`
+    # mode on Linux Firecracker — unprivileged outbound networking via user
+    # namespaces. macOS uses VZNATNetworkDeviceAttachment instead, which is
+    # in-framework and needs no external dependency.
+    depends_on "passt"
 
     on_arm do
       resource "firecracker" do
