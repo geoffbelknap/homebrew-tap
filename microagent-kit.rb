@@ -5,12 +5,12 @@ class MicroagentKit < Formula
   desc "Run Linux workspaces inside microVMs"
   homepage "https://github.com/geoffbelknap/microagent-kit"
   url "https://github.com/geoffbelknap/microagent-kit.git",
-      tag:      "v0.1.31",
-      revision: "5f1f579dc83b0da82b9fba06ead4f753d48e700f"
+      revision: "d8e2edf6ed1db67174f7f05f31639ce35b2820d6"
+  version "0.1.31"
 
   bottle do
     root_url "https://github.com/geoffbelknap/homebrew-tap/releases/download/microagent-kit-0.1.31"
-    rebuild 5
+    rebuild 6
     sha256 cellar: :any_skip_relocation, x86_64_linux: "b478ce483944cc68ded8bc8a939729bbbb11bf3e5c0f35d6e12c21dad56b1268"
   end
 
@@ -75,6 +75,7 @@ class MicroagentKit < Formula
                "--entitlements", "microagent-applevf-supervisor.entitlements",
                ".build/release/microagent-applevf-supervisor"
         bin.install ".build/release/microagent-applevf-supervisor"
+        bin.install_symlink bin/"microagent-applevf-supervisor" => "microagent-supervisor"
       end
       if Hardware::CPU.arm?
         resource("apple-vf-kernel").stage do
@@ -82,6 +83,15 @@ class MicroagentKit < Formula
         end
       end
     else
+      supervisor_arch = Hardware::CPU.arm? ? "arm64" : "amd64"
+      supervisor = bin/"microagent-firecracker-supervisor-#{supervisor_arch}"
+      system "go", "build",
+             "-ldflags", "-s -w",
+             "-o", supervisor,
+             "./cmd/microagent-firecracker-supervisor"
+      bin.install_symlink supervisor => "microagent-firecracker-supervisor"
+      bin.install_symlink supervisor => "microagent-supervisor"
+
       firecracker_arch = Hardware::CPU.arm? ? "aarch64" : "x86_64"
       resource("firecracker").stage do
         libexec.install "firecracker-v1.15.1-#{firecracker_arch}" => "firecracker"
@@ -115,10 +125,15 @@ class MicroagentKit < Formula
     assert_path_exists libexec/"microagent-guestinit-#{guest_arch}"
 
     if OS.mac?
+      assert_path_exists bin/"microagent-supervisor"
       output = pipe_output("#{bin}/microagent-applevf-supervisor", '{"command":"host"}', 0)
       assert_match '"ok" : true', output
       assert_match '"backend" : "apple-vf"', output
     else
+      supervisor_arch = Hardware::CPU.arm? ? "arm64" : "amd64"
+      assert_path_exists bin/"microagent-firecracker-supervisor-#{supervisor_arch}"
+      assert_path_exists bin/"microagent-firecracker-supervisor"
+      assert_path_exists bin/"microagent-supervisor"
       assert_path_exists libexec/"firecracker"
       assert_match "Firecracker", shell_output("#{libexec}/firecracker --version")
     end
