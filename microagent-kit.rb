@@ -8,6 +8,11 @@ class MicroagentKit < Formula
       revision: "c74d20abf6c8f45c0a0978b08886e2fefab474bf"
   version "0.1.33"
 
+  bottle do
+    root_url "https://github.com/geoffbelknap/homebrew-tap/releases/download/microagent-kit-0.1.33"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "0270e6213e888d2d9a68d0d3afc479f535f69311823a5c6070fd1635567f1999"
+  end
+
   depends_on "go" => :build
   depends_on xcode: :build if OS.mac?
 
