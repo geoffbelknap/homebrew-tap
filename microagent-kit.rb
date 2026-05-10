@@ -5,14 +5,8 @@ class MicroagentKit < Formula
   desc "Run Linux workspaces inside microVMs"
   homepage "https://github.com/geoffbelknap/microagent-kit"
   url "https://github.com/geoffbelknap/microagent-kit.git",
-      revision: "d8e2edf6ed1db67174f7f05f31639ce35b2820d6"
-  version "0.1.31"
-
-  bottle do
-    root_url "https://github.com/geoffbelknap/homebrew-tap/releases/download/microagent-kit-0.1.31"
-    rebuild 6
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "b478ce483944cc68ded8bc8a939729bbbb11bf3e5c0f35d6e12c21dad56b1268"
-  end
+      revision: "69a8f59b7ec25bd8708b96f13594e91d7cb7e7c0"
+  version "0.1.32"
 
   depends_on "go" => :build
   depends_on xcode: :build if OS.mac?
