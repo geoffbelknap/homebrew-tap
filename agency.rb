@@ -8,7 +8,7 @@ class Agency < Formula
   version "0.3.18"
 
   depends_on "e2fsprogs"
-  depends_on "geoffbelknap/tap/microagent-kit"
+  depends_on "geoffbelknap/tap/microagent"
   depends_on "python@3.14"
 
   on_macos do
