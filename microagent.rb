@@ -1,10 +1,10 @@
 # typed: false
 # frozen_string_literal: true
 
-class MicroagentKit < Formula
+class Microagent < Formula
   desc "Run Linux workspaces inside microVMs"
-  homepage "https://github.com/geoffbelknap/microagent-kit"
-  url "https://github.com/geoffbelknap/microagent-kit.git",
+  homepage "https://github.com/geoffbelknap/microagent"
+  url "https://github.com/geoffbelknap/microagent.git",
       revision: "1bb1eaff8456c97d307a75d60304a4a2605936fe"
   version "0.1.36"
 
@@ -14,7 +14,7 @@ class MicroagentKit < Formula
   on_macos do
     on_arm do
       resource "apple-vf-kernel" do
-        url "https://github.com/geoffbelknap/microagent-kit/releases/download/kernels-6.12.22-r1/microagent-kernel-6.12.22-apple-vf-arm64"
+        url "https://github.com/geoffbelknap/microagent/releases/download/kernels-6.12.22-r1/microagent-kernel-6.12.22-apple-vf-arm64"
         sha256 "73fe78e51a8ce348e69311d376a02114440eee6b60bf2e91af54bdf2dfb405ec"
       end
     end
