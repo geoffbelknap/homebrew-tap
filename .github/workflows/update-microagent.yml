@@ -1,0 +1,87 @@
+name: update microagent formula
+
+on:
+  repository_dispatch:
+    types:
+      - microagent-release
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: microagent release tag, for example v0.1.38
+        required: true
+      revision:
+        description: Optional commit SHA for the tag
+        required: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout tap
+        uses: actions/checkout@v6
+
+      - name: Set up git
+        uses: Homebrew/actions/git-user-config@main
+
+      - name: Resolve release
+        id: release
+        env:
+          DISPATCH_TAG: ${{ github.event.client_payload.tag }}
+          DISPATCH_REVISION: ${{ github.event.client_payload.revision }}
+          INPUT_TAG: ${{ inputs.tag }}
+          INPUT_REVISION: ${{ inputs.revision }}
+        run: |
+          set -euo pipefail
+          tag="${DISPATCH_TAG:-${INPUT_TAG:-}}"
+          revision="${DISPATCH_REVISION:-${INPUT_REVISION:-}}"
+          if [ -z "$tag" ]; then
+            echo "release tag is required" >&2
+            exit 1
+          fi
+          version="${tag#v}"
+          if [ -z "$revision" ]; then
+            revision="$(git ls-remote https://github.com/geoffbelknap/microagent.git "refs/tags/$tag" | awk '{print $1}')"
+          fi
+          if [ -z "$revision" ]; then
+            echo "could not resolve revision for $tag" >&2
+            exit 1
+          fi
+          {
+            echo "tag=$tag"
+            echo "version=$version"
+            echo "revision=$revision"
+          } >>"$GITHUB_OUTPUT"
+
+      - name: Update formula
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+          REVISION: ${{ steps.release.outputs.revision }}
+        run: |
+          set -euo pipefail
+          ruby -0pi -e 'gsub(/version "[^"]+"/, "version \"#{ENV.fetch("VERSION")}\""); gsub(/revision: "[0-9a-f]{40}"/, "revision: \"#{ENV.fetch("REVISION")}\"")' microagent.rb
+          ruby -c microagent.rb
+
+      - name: Open pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.release.outputs.tag }}
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- microagent.rb; then
+            echo "microagent.rb already at $TAG"
+            exit 0
+          fi
+          branch="bot/microagent-${VERSION}"
+          git checkout -b "$branch"
+          git add microagent.rb
+          git commit -m "Update microagent to ${TAG}"
+          git push --force-with-lease origin "$branch"
+          gh pr create \
+            --title "Update microagent to ${TAG}" \
+            --body "Updates the microagent formula for ${TAG}." \
+            --base main \
+            --head "$branch"
