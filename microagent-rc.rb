@@ -1,12 +1,12 @@
 # typed: false
 # frozen_string_literal: true
 
-class Microagent < Formula
-  desc "Run Linux workspaces inside microVMs"
+class MicroagentRc < Formula
+  desc "Run Linux workspaces inside microVMs (release candidate)"
   homepage "https://github.com/geoffbelknap/microagent"
   url "https://github.com/geoffbelknap/microagent.git",
-      revision: "ff28e821d441c996848f0336e1d9888ba1495c74"
-  version "0.1.44"
+      revision: "bf5b24e56e309c589be4aaa98a0337ce6f4ada77"
+  version "0.1.45-rc.1"
 
   depends_on "go" => :build
   depends_on xcode: :build if OS.mac?
@@ -48,7 +48,7 @@ class Microagent < Formula
     end
   end
 
-  conflicts_with "microagent-rc"
+  conflicts_with "microagent"
 
   def install
     system "go", "build",
@@ -102,11 +102,19 @@ class Microagent < Formula
 
   def caveats
     <<~EOS
-      Microagent includes its default kernel on supported hosts:
-        - macOS arm64: Apple Virtualization Framework kernel
-        - Linux x86_64: Firecracker kernel
+      This formula installs the Microagent release-candidate channel.
+      It conflicts with the stable microagent formula because both install
+      `microagent`, `microagent-supervisor`, and backend supervisor binaries.
 
-      Advanced users can replace it with:
+      Stable channel:
+
+        brew install geoffbelknap/tap/microagent
+
+      Release-candidate channel:
+
+        brew install geoffbelknap/tap/microagent-rc
+
+      Advanced users can replace the default kernel with:
 
         microagent kernel install --from /path/to/Image --sha256 <sha256>
     EOS
