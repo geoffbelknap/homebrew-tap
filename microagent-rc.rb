@@ -5,7 +5,7 @@ class MicroagentRc < Formula
   desc "Run Linux workspaces inside microVMs (release candidate)"
   homepage "https://github.com/geoffbelknap/microagent"
   url "https://github.com/geoffbelknap/microagent.git",
-      revision: "bf5b24e56e309c589be4aaa98a0337ce6f4ada77"
+      revision: "7c413a84e33491e2dd9414cd4b134feec69ce427"
   version "0.1.45-rc.1"
 
   depends_on "go" => :build
