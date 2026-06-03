@@ -109,6 +109,16 @@ class Microagent < Formula
       Advanced users can replace it with:
 
         microagent kernel install --from /path/to/Image --sha256 <sha256>
+
+      Networking (Linux): "isolated" and "user" (passt) modes work out of the box.
+      The "nat", "bridged", and "named" modes need a one-time privileged step:
+
+        sudo microagent host setup-networking
+
+      A "brew upgrade" resets this (file capabilities don't survive a reinstall),
+      so re-run it after upgrading. Check readiness any time with:
+
+        microagent doctor
     EOS
   end
 
