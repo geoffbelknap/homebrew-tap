@@ -49,39 +49,50 @@ jobs:
             echo "could not resolve revision for $tag" >&2
             exit 1
           fi
+          formula="microagent.rb"
+          channel="stable"
+          if [[ "$version" == *"-rc."* ]]; then
+            formula="microagent-rc.rb"
+            channel="rc"
+          fi
           {
             echo "tag=$tag"
             echo "version=$version"
             echo "revision=$revision"
+            echo "formula=$formula"
+            echo "channel=$channel"
           } >>"$GITHUB_OUTPUT"
 
       - name: Update formula
         env:
           VERSION: ${{ steps.release.outputs.version }}
           REVISION: ${{ steps.release.outputs.revision }}
+          FORMULA: ${{ steps.release.outputs.formula }}
         run: |
           set -euo pipefail
-          ruby -0pi -e 'gsub(/version "[^"]+"/, "version \"#{ENV.fetch("VERSION")}\""); gsub(/revision: "[0-9a-f]{40}"/, "revision: \"#{ENV.fetch("REVISION")}\"")' microagent.rb
-          ruby -c microagent.rb
+          ruby -0pi -e 'gsub(/version "[^"]+"/, "version \"#{ENV.fetch("VERSION")}\""); gsub(/revision: "[0-9a-f]{40}"/, "revision: \"#{ENV.fetch("REVISION")}\"")' "$FORMULA"
+          ruby -c "$FORMULA"
 
       - name: Open pull request
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.release.outputs.tag }}
           VERSION: ${{ steps.release.outputs.version }}
+          FORMULA: ${{ steps.release.outputs.formula }}
+          CHANNEL: ${{ steps.release.outputs.channel }}
         run: |
           set -euo pipefail
-          if git diff --quiet -- microagent.rb; then
-            echo "microagent.rb already at $TAG"
+          if git diff --quiet -- "$FORMULA"; then
+            echo "$FORMULA already at $TAG"
             exit 0
           fi
-          branch="bot/microagent-${VERSION}"
+          branch="bot/microagent-${CHANNEL}-${VERSION}"
           git checkout -b "$branch"
-          git add microagent.rb
-          git commit -m "Update microagent to ${TAG}"
+          git add "$FORMULA"
+          git commit -m "Update microagent ${CHANNEL} to ${TAG}"
           git push --force-with-lease origin "$branch"
           gh pr create \
-            --title "Update microagent to ${TAG}" \
-            --body "Updates the microagent formula for ${TAG}." \
+            --title "Update microagent ${CHANNEL} to ${TAG}" \
+            --body "Updates ${FORMULA} for ${TAG}." \
             --base main \
             --head "$branch"
