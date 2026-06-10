@@ -48,7 +48,9 @@ class MicroagentRc < Formula
     end
   end
 
-  conflicts_with "microagent"
+  # Side-by-side with the stable formula: install fully but do not link
+  # into the prefix, since both channels install the same binary names.
+  keg_only "it conflicts with the stable microagent formula"
 
   def install
     system "go", "build",
@@ -103,16 +105,16 @@ class MicroagentRc < Formula
   def caveats
     <<~EOS
       This formula installs the Microagent release-candidate channel.
-      It conflicts with the stable microagent formula because both install
-      `microagent`, `microagent-supervisor`, and backend supervisor binaries.
+      It is keg-only so it can be installed alongside the stable microagent
+      formula; nothing is linked into your PATH.
 
-      Stable channel:
+      Run the RC directly:
 
-        brew install geoffbelknap/tap/microagent
+        #{opt_bin}/microagent
 
-      Release-candidate channel:
+      Or put the RC first on your PATH:
 
-        brew install geoffbelknap/tap/microagent-rc
+        export PATH="#{opt_bin}:$PATH"
 
       Advanced users can replace the default kernel with:
 
