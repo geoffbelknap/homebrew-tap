@@ -8,6 +8,10 @@ class MicroagentRc < Formula
       revision: "e7d74d921ed6954cd6603c02f0eeb756dd6c2359"
   version "0.1.46-rc.3"
 
+  # Side-by-side with the stable formula: install fully but do not link
+  # into the prefix, since both channels install the same binary names.
+  keg_only "it conflicts with the stable microagent formula"
+
   depends_on "go" => :build
   depends_on xcode: :build if OS.mac?
 
@@ -48,9 +52,6 @@ class MicroagentRc < Formula
     end
   end
 
-  # Side-by-side with the stable formula: install fully but do not link
-  # into the prefix, since both channels install the same binary names.
-  keg_only "it conflicts with the stable microagent formula"
 
   def install
     system "go", "build",
