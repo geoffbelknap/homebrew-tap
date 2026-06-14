@@ -48,8 +48,6 @@ class Microagent < Formula
     end
   end
 
-  conflicts_with "microagent-rc"
-
   def install
     system "go", "build",
            "-ldflags", "-s -w -X main.version=#{version}",
@@ -111,9 +109,10 @@ class Microagent < Formula
         microagent kernel install --from /path/to/Image --sha256 <sha256>
 
       Networking (Linux): "isolated" and "user" (passt) modes work out of the box.
-      The "nat", "bridged", and "named" modes need a one-time privileged step:
+      The "nat", "bridged", and "named" modes need a one-time privileged step
+      (it asks for confirmation, then re-runs itself under sudo):
 
-        sudo microagent host setup-networking
+        microagent host setup-networking
 
       A "brew upgrade" resets this (file capabilities don't survive a reinstall),
       so re-run it after upgrading. Check readiness any time with:
