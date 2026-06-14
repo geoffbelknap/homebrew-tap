@@ -48,8 +48,6 @@ class Microagent < Formula
     end
   end
 
-  conflicts_with "microagent-rc"
-
   def install
     system "go", "build",
            "-ldflags", "-s -w -X main.version=#{version}",
