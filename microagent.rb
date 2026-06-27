@@ -5,8 +5,8 @@ class Microagent < Formula
   desc "Run Linux workspaces inside microVMs"
   homepage "https://github.com/geoffbelknap/microagent"
   url "https://github.com/geoffbelknap/microagent.git",
-      revision: "aef2ea1b1587008940fd77f8cf4cc1dec69dbe3b"
-  version "kernels-6.1.155-r2"
+      revision: "d426439e49072217a96e3e14577929a97bfbaab0"
+  version "0.8.3"
 
   depends_on "go" => :build
   depends_on xcode: :build if OS.mac?
@@ -14,8 +14,8 @@ class Microagent < Formula
   on_macos do
     on_arm do
       resource "apple-vf-kernel" do
-        url "https://github.com/geoffbelknap/microagent/releases/download/kernels-6.12.22-r1/microagent-kernel-6.12.22-apple-vf-arm64"
-        sha256 "73fe78e51a8ce348e69311d376a02114440eee6b60bf2e91af54bdf2dfb405ec"
+        url "https://kernels.microagent.sh/apple-vf/arm64/6.18.37/Image"
+        sha256 "850668120d7d1427db2d547c2276151321c296aa661fd917c0ca60fc09af9f8d"
       end
     end
   end
@@ -41,9 +41,9 @@ class Microagent < Formula
         sha256 "d4a32ab2322d887ca1bc4a4e7afa9cc35393e6362dfc2b3becb389d362e4275a"
       end
 
-      resource "firecracker-kernel" do
-        url "https://github.com/geoffbelknap/microagent-kernels/releases/download/kernels-6.1.155-r2/microagent-kernel-6.1.155-firecracker-amd64"
-        sha256 "4bbe8b2fd19f78fea4bf02d52a67482227a896c90a63f272b6a084fa46a416c0"
+      resource "linux-kvm-kernel" do
+        url "https://kernels.microagent.sh/linux-kvm/amd64/6.18.36/vmlinux"
+        sha256 "02804d951d654f1538dc58d1bccd6a8f702b26ba5c6180531b3dbdb179d18fb6"
       end
     end
   end
@@ -73,7 +73,7 @@ class Microagent < Formula
       end
       if Hardware::CPU.arm?
         resource("apple-vf-kernel").stage do
-          (libexec/"kernels/apple-vf/arm64").install "microagent-kernel-6.12.22-apple-vf-arm64" => "Image"
+          (libexec/"kernels/apple-vf/arm64").install "Image" => "Image"
         end
       end
     else
@@ -91,8 +91,8 @@ class Microagent < Formula
         libexec.install "firecracker-v1.15.1-#{firecracker_arch}" => "firecracker"
       end
       if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-        resource("firecracker-kernel").stage do
-          (libexec/"kernels/firecracker/amd64").install "microagent-kernel-6.1.155-firecracker-amd64" => "Image"
+        resource("linux-kvm-kernel").stage do
+          (libexec/"kernels/linux-kvm/amd64").install "vmlinux" => "Image"
         end
       end
     end
