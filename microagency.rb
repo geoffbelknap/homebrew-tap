@@ -19,14 +19,7 @@ class Microagency < Formula
   end
 
   def caveats
-    <<~EOS
-      Start it:   microagency up      (auto-registers with Claude Code; approve once in the browser)
-      Check it:   microagency doctor  (wasm engines + microVM runtime health)
-      Console:    http://127.0.0.1:8765/console  (add MCP servers, browse the registry, see impact)
-
-      The MCP gateway + declarative reduce work immediately. The Python `reduce code`
-      path uses the microVM runtime from the `microagent` dependency.
-    EOS
+    "Get started:  microagency up"
   end
 
   test do
