@@ -13,7 +13,7 @@ class Microagency < Formula
   on_macos do
     if Hardware::CPU.intel?
       url "https://github.com/geoffbelknap/microagency/releases/download/v0.1.2/microagency_0.1.2_darwin_amd64.tar.gz"
-      sha256 "41631a425fc6731c673c4c1e84f3b710820a807a744976b55626ea1762d7ab56"
+      sha256 "555b039155cc9c59d9ee6a3833a33d146843890781e6dd728c1ce71640ff8f68"
 
       define_method(:install) do
         bin.install "microagency"
@@ -21,7 +21,7 @@ class Microagency < Formula
     end
     if Hardware::CPU.arm?
       url "https://github.com/geoffbelknap/microagency/releases/download/v0.1.2/microagency_0.1.2_darwin_arm64.tar.gz"
-      sha256 "da7b1b49475a410545d6754095ba849c16c5a956502392a5c9ab58d881399ed6"
+      sha256 "b655c5f68950767f0b26f293e027be6885bdf456e279493ac8d974eb634b0bff"
 
       define_method(:install) do
         bin.install "microagency"
@@ -32,14 +32,14 @@ class Microagency < Formula
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
       url "https://github.com/geoffbelknap/microagency/releases/download/v0.1.2/microagency_0.1.2_linux_amd64.tar.gz"
-      sha256 "3c890d65848dad52aebb922e0204f3077fb9a80f7a803f10d02f1e28f0378c7a"
+      sha256 "42a05c7efe8052d08763421e7b814410826f9ec7f02b278267eee9687667d0ba"
       define_method(:install) do
         bin.install "microagency"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/geoffbelknap/microagency/releases/download/v0.1.2/microagency_0.1.2_linux_arm64.tar.gz"
-      sha256 "d4a16edef34c4573c872fa16f3317119028d1272993003fea54c66b1504d8684"
+      sha256 "aa37185caf34d8114ea1eba6adf2247838204f07f315f75760ca8d260dc7539d"
       define_method(:install) do
         bin.install "microagency"
       end
