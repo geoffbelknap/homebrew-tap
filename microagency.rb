@@ -5,8 +5,8 @@ class Microagency < Formula
   desc "Governed MCP gateway: cred-blind, off-context tool access for any MCP client"
   homepage "https://github.com/geoffbelknap/microagency"
   url "https://github.com/geoffbelknap/microagency.git",
-      revision: "e449601a010de93d7853eb9a12fc55f657d5093b"
-  version "0.1.0"
+      revision: "87f2a1bf860daf0f418bcae8353a3104fa6dacd3"
+  version "0.1.1"
 
   depends_on "go" => :build
   depends_on xcode: :build if OS.mac?
