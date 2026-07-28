@@ -108,25 +108,6 @@ class MicroagentLatest < Formula
       This is the latest build from main, refreshed on every merge. It
       conflicts with the stable `microagent` formula (both install
       `microagent`).
-
-      Microagent includes its default kernel on supported hosts:
-        - macOS arm64: Apple Virtualization Framework kernel
-        - Linux x86_64: Firecracker kernel
-
-      Advanced users can replace it with:
-
-        microagent kernel install --from /path/to/Image --sha256 <sha256>
-
-      Networking (Linux): "isolated" and "user" (passt) modes work out of the box.
-      The "nat", "bridged", and "named" modes need a one-time privileged step
-      (it asks for confirmation, then re-runs itself under sudo):
-
-        microagent host setup-networking
-
-      A "brew upgrade" resets this (file capabilities don't survive a reinstall),
-      so re-run it after upgrading. Check readiness any time with:
-
-        microagent doctor
     EOS
   end
 
