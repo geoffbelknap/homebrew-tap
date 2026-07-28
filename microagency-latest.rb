@@ -5,23 +5,23 @@
 class MicroagencyLatest < Formula
   desc "Governed MCP gateway (latest build from main): cred-blind, off-context MCP access"
   homepage "https://github.com/geoffbelknap/microagency"
-  version "0.2.0-latest.148"
+  version "0.2.0-latest.149"
 
-  depends_on "microagent"
+  depends_on "microagent" => :recommended
   depends_on "openbao"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/geoffbelknap/microagency/releases/download/v0.2.0-latest.148/microagency_0.2.0-latest.148_darwin_amd64.tar.gz"
-      sha256 "3bbbc017be6708a096dc06f492eb194ea9c96689fcda4e4cffc46052fcc16e54"
+      url "https://github.com/geoffbelknap/microagency/releases/download/v0.2.0-latest.149/microagency_0.2.0-latest.149_darwin_amd64.tar.gz"
+      sha256 "7b2b86d51bb778051185699702cd62940f12ca7fa3a75dcb3e6da23080944e8d"
 
       define_method(:install) do
         bin.install "microagency"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/geoffbelknap/microagency/releases/download/v0.2.0-latest.148/microagency_0.2.0-latest.148_darwin_arm64.tar.gz"
-      sha256 "d4b4d7db30ffd28c9a32c7a491b7ba37714b819c277d6ec92847a795b9042f6c"
+      url "https://github.com/geoffbelknap/microagency/releases/download/v0.2.0-latest.149/microagency_0.2.0-latest.149_darwin_arm64.tar.gz"
+      sha256 "c67121fcc0316492b2fd6b4cc5273a64c0ef77be0f50ba0c542d7156cc163ca0"
 
       define_method(:install) do
         bin.install "microagency"
@@ -31,15 +31,15 @@ class MicroagencyLatest < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/microagency/releases/download/v0.2.0-latest.148/microagency_0.2.0-latest.148_linux_amd64.tar.gz"
-      sha256 "412f2b11893abfba6575883a44c3cd8b1a94c2b7fb7b66e1311fa381900ff348"
+      url "https://github.com/geoffbelknap/microagency/releases/download/v0.2.0-latest.149/microagency_0.2.0-latest.149_linux_amd64.tar.gz"
+      sha256 "316ddd377a535e2df967e80284953be66115e05a1ccdaaba7917c06a08f3ef5f"
       define_method(:install) do
         bin.install "microagency"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/microagency/releases/download/v0.2.0-latest.148/microagency_0.2.0-latest.148_linux_arm64.tar.gz"
-      sha256 "d99380f1cfe19c28ebed2113bb89aabfd53977b9fb08c0c655f1fe2b887a0545"
+      url "https://github.com/geoffbelknap/microagency/releases/download/v0.2.0-latest.149/microagency_0.2.0-latest.149_linux_arm64.tar.gz"
+      sha256 "3c9c2bf1f5521b20a71cfb59c6d2c0724d5f0c873862c86250cad90a403de1d2"
       define_method(:install) do
         bin.install "microagency"
       end
@@ -52,6 +52,10 @@ class MicroagencyLatest < Formula
     <<~EOS
       This is the latest build from main, refreshed on every merge. It conflicts
       with the stable `microagency` formula (both install `microagency`).
+
+      On a machine tracking microagent-latest, install with
+      `--without-microagent` so the stable microagent formula does not
+      shadow-fight the latest train over the same binary names.
 
       Get started:  microagency up
     EOS
