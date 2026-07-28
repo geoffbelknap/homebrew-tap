@@ -48,6 +48,8 @@ class Microagent < Formula
     end
   end
 
+  conflicts_with "microagent-latest", because: "both install a `microagent` binary"
+
   def install
     system "go", "build",
            "-ldflags", "-s -w -X main.version=#{version}",
