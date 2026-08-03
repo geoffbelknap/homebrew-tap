@@ -8,8 +8,8 @@ class MicroagentLatest < Formula
   desc "Run Linux workspaces inside microVMs (latest build from main)"
   homepage "https://github.com/geoffbelknap/microagent"
   url "https://github.com/geoffbelknap/microagent.git",
-      revision: "98d25aca612c99f969e90bbab24d638bd8bed452"
-  version "0.9.0-latest.1510"
+      revision: "78e4b15e777dbf34a0518342dd8ce3e7ced87441"
+  version "0.9.0-latest.1511"
 
   depends_on "go" => :build
   depends_on xcode: :build if OS.mac?
