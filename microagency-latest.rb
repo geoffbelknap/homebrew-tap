@@ -5,23 +5,23 @@
 class MicroagencyLatest < Formula
   desc "Governed MCP gateway (latest build from main): cred-blind, off-context MCP access"
   homepage "https://github.com/geoffbelknap/microagency"
-  version "0.2.0-latest.188"
+  version "0.2.0-latest.189"
 
   depends_on "microagent" => :recommended
   depends_on "openbao"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/geoffbelknap/microagency/releases/download/v0.2.0-latest.188/microagency_0.2.0-latest.188_darwin_amd64.tar.gz"
-      sha256 "63f9ca0e950bc47142fb0cde69fd74ca3ca3930494ea83ee6dca0a91b679972b"
+      url "https://github.com/geoffbelknap/microagency/releases/download/v0.2.0-latest.189/microagency_0.2.0-latest.189_darwin_amd64.tar.gz"
+      sha256 "3b6dea778a991aa3b27f55d56e9820f5ff16e4e2c76c1d62a0f245d3fd0c6cd2"
 
       define_method(:install) do
         bin.install "microagency"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/geoffbelknap/microagency/releases/download/v0.2.0-latest.188/microagency_0.2.0-latest.188_darwin_arm64.tar.gz"
-      sha256 "7db37424dc6ac88d8e2cf6ab19ffbde9c2e6cce9cc75aa1d0d6c9a03ac19b92d"
+      url "https://github.com/geoffbelknap/microagency/releases/download/v0.2.0-latest.189/microagency_0.2.0-latest.189_darwin_arm64.tar.gz"
+      sha256 "0366bf2f147b94820ff7344ef5856b4cf3610aa76d7ff2a8da74e46f2e289047"
 
       define_method(:install) do
         bin.install "microagency"
@@ -31,15 +31,15 @@ class MicroagencyLatest < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/microagency/releases/download/v0.2.0-latest.188/microagency_0.2.0-latest.188_linux_amd64.tar.gz"
-      sha256 "fcfcec2ef84d80e8b918ceada47d6ae2cc31bc56b5b1aa54b8126dbe5bd7de7d"
+      url "https://github.com/geoffbelknap/microagency/releases/download/v0.2.0-latest.189/microagency_0.2.0-latest.189_linux_amd64.tar.gz"
+      sha256 "b9bd72798c18755b19283b28bacc3bdb6abfbea3000dff7f53db15ea8ce52be6"
       define_method(:install) do
         bin.install "microagency"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/geoffbelknap/microagency/releases/download/v0.2.0-latest.188/microagency_0.2.0-latest.188_linux_arm64.tar.gz"
-      sha256 "44ef813cfc37958f1bfadbb663a09eaaa017b3c86795556f886c79a106aea666"
+      url "https://github.com/geoffbelknap/microagency/releases/download/v0.2.0-latest.189/microagency_0.2.0-latest.189_linux_arm64.tar.gz"
+      sha256 "589cb536488f93fdf874d23bb57038be49a88b1b43e738fa4479cae2b135e31c"
       define_method(:install) do
         bin.install "microagency"
       end
