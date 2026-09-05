@@ -18,8 +18,8 @@ class MicroagentLatest < Formula
   # microagent source: macos
   on_macos do
     url "https://github.com/geoffbelknap/microagent.git",
-        revision: "fd3547dd5e26f5525b37c63a04923d840ff5853d"
-    version "0.10.0-latest.1582"
+        revision: "851ff9c9609b6d0eb2879a0188fa40a7a05ff7ac"
+    version "0.10.0-latest.1605"
   end
   # end microagent source: macos
 
@@ -118,6 +118,9 @@ class MicroagentLatest < Formula
   def caveats
     if OS.mac?
       <<~EOS
+        This is a development build. Linux tracks main; macOS advances after
+        live validation. It conflicts with the stable `microagent` formula
+        because both install `microagent`.
       EOS
     else
       <<~EOS
