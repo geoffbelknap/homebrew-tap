@@ -10,8 +10,8 @@ class MicroagentLatest < Formula
   # microagent source: linux
   on_linux do
     url "https://github.com/geoffbelknap/microagent.git",
-        revision: "a200e6a0dab9c9609c1ee5fab7b5cb124d45e32a"
-    version "0.10.0-latest.1604"
+        revision: "851ff9c9609b6d0eb2879a0188fa40a7a05ff7ac"
+    version "0.10.0-latest.1605"
   end
   # end microagent source: linux
 
