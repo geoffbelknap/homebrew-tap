@@ -7,9 +7,21 @@
 class MicroagentLatest < Formula
   desc "Run Linux workspaces inside microVMs (latest build from main)"
   homepage "https://github.com/geoffbelknap/microagent"
-  url "https://github.com/geoffbelknap/microagent.git",
-      revision: "9d35053a4430a1e6f7f07d4bf0453f3d04472809"
-  version "0.10.0-latest.1601"
+  # microagent source: linux
+  on_linux do
+    url "https://github.com/geoffbelknap/microagent.git",
+        revision: "1f4fdd4937149049d96830aee781c1ff69cd072c"
+    version "0.10.0-latest.1602"
+  end
+  # end microagent source: linux
+
+  # microagent source: macos
+  on_macos do
+    url "https://github.com/geoffbelknap/microagent.git",
+        revision: "fd3547dd5e26f5525b37c63a04923d840ff5853d"
+    version "0.10.0-latest.1582"
+  end
+  # end microagent source: macos
 
   depends_on "go" => :build
   depends_on xcode: :build if OS.mac?
@@ -104,11 +116,16 @@ class MicroagentLatest < Formula
   end
 
   def caveats
-    <<~EOS
-      This is the latest build from main, refreshed on every merge. It
-      conflicts with the stable `microagent` formula (both install
-      `microagent`).
-    EOS
+    if OS.mac?
+      <<~EOS
+      EOS
+    else
+      <<~EOS
+        This is a development build. Linux tracks main; macOS advances after
+        live validation. It conflicts with the stable `microagent` formula
+        because both install `microagent`.
+      EOS
+    end
   end
 
   test do
